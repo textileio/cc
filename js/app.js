@@ -210,7 +210,11 @@ $(document).ready(function() {
     let image = container.find(".original-image")
 
     container.find('.image-title').html(meta.original.title)
-    container.find('.image-description').html(meta.original.description)
+    console.log(meta.original.taken)
+    container.find('.image-description').html(
+      'Taken on ' + humandate.prettyPrint(new Date(meta.original.taken.replace(" ", "T"))) + '.' +
+      ' Access <a href="https://ipfs.textile.io/ipfs/' + hash + '/meta">full metadata</a>.'
+    )
 
     container.find('.highlight.original').html(hash)
     container.find('.highlight.large').html(hash)
