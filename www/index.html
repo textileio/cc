@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Textile CC</title>
+    <meta name="description" content="Put your original gallery names onto the folders of photos you export from Facebook.">
+    <meta name="author" content="textile">
+
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,800" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:100,300,500,700" />
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.0/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="/lib/css/normalize.css">
+    <link rel="stylesheet" href="/lib/css/skeleton.css">
+    <link rel="stylesheet" href="/lib/css/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    </head>
+    <body>
+    <div class="section header">
+        <div class="container">
+            <div class="row">
+                <div class="one-third column value">
+                    <img class="logo" src="img/logo-240px.png" />
+                </div>
+                <div class="one-third column value login">
+                    <a class="button" href="https://www.textile.photos/" target="_blank">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="gallery">
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" class="section footer">
+        <div class="container">
+            <div class="row">
+                <div class="u-max-full-width column">
+                    <b><a href="https://www.textile.photos/">textile.photos</a></b><br />
+                    <p><a href="https://github.com/textileio/textile-facebook">we're open source</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;" id="full-image">
+        <div class="ipfs-image full-width-container">
+            <div class="row">
+                <div class="column main-obj portfolio">
+                    <img class="original-image"/>
+                </div>
+                <div class="column main-obj">
+                    <div class="three column explainer">
+                        <h1 class="image-title">Image Title</h1>
+                        <code class="image-description">
+                            This image yada yada
+                        </code>
+                    </div>
+                    <div class="three column explainer">
+                        <h3>Access via IPFS</h3>
+                        <code class="ipfs-explainer">
+                            IPFS get <span class="highlight original"></span>/original.jpg;<br/>
+                            IPFS get <span class="highlight large"></span>/large.jpg;<br/>
+                            IPFS get <span class="highlight thumb"></span>/thumb.jpg;<br/>
+                            IPFS get <span class="highlight meta"></span>/meta;<br/>
+                        </code>
+                    </div>
+                    <div class="three column explainer">
+                        <h3>Access via HTTP</h3>
+                        <code class="http-explainer">
+                            <a class="http-link" href="" target="_blank"></a>
+                        </code>
+                    </div>
+                    <div class="three column explainer">
+                        <h3>Credits</h3>
+                        <code class="credits">
+                            Flickr,
+                            SpaceX,
+                            blah blah,
+                            blah blah
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script data-main="app" src="lib/require.js"></script>
+    </body>
+</html>

@@ -1,0 +1,135 @@
+body {
+    font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1,h2,h3,h4,h5 {
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h5 {
+    font-size: 18px;
+}
+.header .logo {
+    margin: 10px 0;
+    height: 80px;
+}
+.header .login {
+    margin-top: 4px;
+    padding-top: 30px;
+    text-align: right;
+    float: right;
+}
+.header .login .button {
+    font-size: 12px;
+    float: right;
+}
+@media screen and (max-width: 540px) { /* Specific to this particular image */
+    .header .login {
+        display: none;
+    }
+}
+.full-width-container {
+    width: 90%;
+    max-width: 90%;
+    clear: both;
+    margin: 0 auto;
+}
+
+.fancybox-content {
+    background: #333;
+    color: white;
+    height: 100vh;
+    width: 100vw;
+}
+.ipfs-image.full-width-container,
+.ipfs-image.full-width-container .row {
+    background: #333;
+    text-align: left;
+    height: 100vh;
+}
+
+.fancybox-content .row .main-obj.one-half {
+    display: inline-block;
+    float: none;
+    margin-left: 0;
+    vertical-align: middle;
+}
+.fancybox-content .row .main-obj.one-half img {
+    position: relative;
+    height: auto;
+    max-width: 100%;
+    max-height: 90vh;
+}
+
+.fancybox-content .row .main-obj.twelve {
+    display: inline-block;
+    float: none;
+    margin-left: 0;
+    vertical-align: middle;
+}
+.fancybox-content .row .main-obj.twelve  img {
+    position: relative;
+    max-width: 100%;
+    max-height: 80vh;
+    display:block;
+    margin:auto
+}
+
+.fancybox-content .row .explainer {
+    text-align: center;
+    font-size: 12px;
+    background: #333;
+    font-family: "Courier 10 Pitch", Courier, monospace;
+    padding: 0;
+    margin: 0;
+}
+.fancybox-content .row .explainer h1 {
+    padding-top: 20px;
+    font-size: 20px;
+    background: #333;
+}
+.fancybox-content .row .explainer h3 {
+    padding-top: 20px;
+    font-size: 16px;
+    background: #333;
+}
+
+.fancybox-content .row .explainer code {
+    min-height: 5vh;
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+    line-height: 180%;
+    background: #444;
+    display: block;
+    padding: 2em 2em;
+    margin: 2em 1em;
+    border: 1px solid #777;
+    text-align: left;
+    overflow: scroll;
+
+    max-width:  600px;
+    display:block;
+    margin:auto
+}
+
+.fancybox-content .image-description,
+.fancybox-content .credits {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.fancybox-content .row .explainer a {
+    color: lightskyblue;
+}
+.fancybox-content .row .explainer .highlight {
+    color: lightskyblue;
+}
+
+.footer {
+    margin-top: 25px;
+    height: 118px;
+    padding-top: 100px;
+    background-color: #0065ff;
+    color: white;
+    text-align: center;
+}
