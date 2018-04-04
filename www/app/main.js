@@ -35,7 +35,7 @@ define(function (require) {
     console.log(meta.original.taken)
     container.find('.image-description').html(
         'Taken on ' + humandate.prettyPrint(new Date(meta.original.taken.replace(" ", "T"))) + '.' +
-        ' Access <a href="https://gateway.textile.io/ipfs/' + hash + '/meta">full metadata</a>.'
+        ' Access <a href="https://gateway.textile.photos/ipfs/' + hash + '/meta">full metadata</a>.'
     )
 
     container.find('.highlight.original').html(hash)
@@ -43,8 +43,8 @@ define(function (require) {
     container.find('.highlight.thumb').html(hash)
     container.find('.highlight.meta').html(hash)
 
-    container.find('.http-link').text("https://gateway.textile.io/ipfs/" + hash + "/large.jpg")
-    container.find('.http-link').attr("href", "https://gateway.textile.io/ipfs/" + hash + "/large.jpg")
+    container.find('.http-link').text("https://gateway.textile.photos/ipfs/" + hash + "/large.jpg")
+    container.find('.http-link').attr("href", "https://gateway.textile.photos/ipfs/" + hash + "/large.jpg")
 
     container.find('.credits').html(
         '<a href="https://www.flickr.com/people/' + meta.source.alias + '">' +
@@ -62,7 +62,7 @@ define(function (require) {
       explainer.removeClass("three")
       image.removeClass("zoom-image-wide")
       image.addClass("zoom-image-tall")
-      image.attr("src", "https://gateway.textile.io/ipfs/"+Textile.data[hash]['large.jpg'].hash)
+      image.attr("src", "https://gateway.textile.photos/ipfs/"+Textile.data[hash]['large.jpg'].hash)
     } else {
       column.addClass("twelve")
       column.removeClass("one-half")
@@ -72,7 +72,7 @@ define(function (require) {
 
       image.addClass("zoom-image-wide")
       image.removeClass("zoom-image-tall")
-      image.attr("src", "https://gateway.textile.io/ipfs/"+Textile.data[hash]['large.jpg'].hash)
+      image.attr("src", "https://gateway.textile.photos/ipfs/"+Textile.data[hash]['large.jpg'].hash)
     }
   });
 });
