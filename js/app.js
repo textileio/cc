@@ -34,8 +34,8 @@ let Textile = {
       }
     }
     return Promise.all(promises.map(p => p.catch(e => e)))
-        .then(() => { Textile.loading = false})
-        .catch(e => console.log(e));
+      .then(() => { Textile.loading = false})
+      .catch(e => console.log(e));
   },
   drawScreen: function() {
     console.log("screen", this.onScreen, this.initPageSize, this.hashes.length)
@@ -66,6 +66,7 @@ let Textile = {
             .then((files) => {
               let content = JSON.parse(files[0].content)
               Textile.data[hash]["meta"]['data'] = content
+              console.log(content)
               return hash
             })
         )
@@ -202,7 +203,6 @@ $(document).ready(function() {
   $(document).on('beforeLoad.fb', function( e, instance ) {
     let hash = instance.currentHash
     console.log(Textile.data[hash].meta)
-    console.log("a")
     let meta = Textile.data[hash].meta.data
     let container = $("#full-image .ipfs-image")
     let column = container.find(".main-obj")
@@ -210,7 +210,11 @@ $(document).ready(function() {
     let image = container.find(".original-image")
 
     container.find('.image-title').html(meta.original.title)
-    container.find('.image-description').html(meta.original.description)
+    console.log(meta.original.taken)
+    container.find('.image-description').html(
+      'Taken on ' + humandate.prettyPrint(new Date(meta.original.taken.replace(" ", "T"))) + '.' +
+      ' Access <a href="https://ipfs.textile.io/ipfs/' + hash + '/meta">full metadata</a>.'
+    )
 
     container.find('.highlight.original').html(hash)
     container.find('.highlight.large').html(hash)
@@ -219,6 +223,12 @@ $(document).ready(function() {
 
     container.find('.http-link').text("https://ipfs.textile.io/ipfs/" + hash + "/large.jpg")
     container.find('.http-link').attr("href", "https://ipfs.textile.io/ipfs/" + hash + "/large.jpg")
+    
+    container.find('.credits').html(
+      '<a href="https://www.flickr.com/people/' + meta.source.alias + '">' +
+      meta.source.name + '</a> ' + meta.source.service + ' account, licensed under ' +
+      '<a href="' + meta.original.license.url + '">' + meta.original.license.longname + '</a>.'
+    )
 
     let dimensions = meta.derivatives.large.info.dimensions
     if (dimensions[0] * 0.8 < dimensions[1]) {
