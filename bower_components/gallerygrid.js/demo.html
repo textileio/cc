@@ -1,0 +1,193 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>GalleryGrid.js Demo</title>
+    <meta name="description" content="A demonstration and testbed for gallerygrid.js functionality">
+    <meta name="author" content="Mario Guggenberger">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <style type="text/css">
+      html {
+        /* Always show vertical scroll bar to avoid "jumping" layout when scrollbar appears/disappears */
+        overflow-y: scroll;
+      }
+
+      /* Grid container */
+      ul#gallery {
+        /* Reset default ul styles */
+        padding: 0;
+        margin: 0;
+
+        margin-bottom: 2em;
+
+        /* Add a background to the container to improve its visibility */
+        background-color: #ddd;
+      }
+
+      /* Grid item */
+      ul#gallery li {
+        /* Reset default li styles */
+        list-style: none;
+        padding: 0;
+
+        /* Display as inline-block instead of block to order items horizontally */
+        display: inline-block;
+
+        /* Add a gep between items */
+        margin: 2px;
+      }
+
+      /* Grid item image */
+      ul#gallery li img {
+        /* Add border around images */
+        outline: rgba(0,0,0,.6) solid 1px;
+        outline-offset: -1px;
+
+        /* Workaround to remove space below the image: http://stackoverflow.com/a/34952703 */
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>GalleryGrid.js Demo</h1>
+
+      <p>
+        This is a demo of the grid layout inside a responsive <a href="http://getbootstrap.com/">Bootstrap</a> container. The grid markup itself is just a <code>&lt;ul&gt;</code> with multiple <code>&lt;li class="picture"&gt;</code> items that contain <code>&lt;img src="..." data-width="..." data-height="..."&gt;</code> tags with the actual images. Resize the browser window to see how the grid automatically updates when the size of the container changes, and play around with the available settings and methods in the control panel below. For more information check the description on the <a href="https://github.com/protyposis/gallerygrid.js">GitHub page</a>.
+      </p>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">API Playground</h3>
+        </div>
+        <div class="panel-body">
+
+          <h4>Options</h4>
+
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="config-targetheight" class="col-sm-4 control-label"><code>options.targetHeight</code></label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input type="number" class="form-control" id="config-targetheight">
+                  <span class="input-group-addon">px</span>
+                </div>
+              </div>
+              <span class="col-sm-4 help-block">The desired height of a row of images in the layout.</span>
+            </div>
+            <div class="form-group">
+              <label for="config-minwidth" class="col-sm-4 control-label"><code>options.minWidth</code></label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input type="number" class="form-control" id="config-minwidth">
+                  <span class="input-group-addon">px</span>
+                </div>
+              </div>
+              <span class="col-sm-4 help-block">The minimum width of the container at which the layout will be applied. Useful to apply a responsive alternative layout (e.g. pure CSS) to extremely small screen sizes.</span>
+            </div>
+            <div class="form-group">
+              <label for="config-updateonresize" class="col-sm-4 control-label"><code>options.updateOnResize</code></label>
+              <div class="col-sm-4">
+                <input type="checkbox" id="config-updateonresize">
+              </div>
+              <span class="col-sm-4 help-block">Automatic layout update when the window size changes.</span>
+            </div>
+          </form>
+
+          <h4>Methods</h4>
+
+          <button type="button" class="btn btn-primary" id="btn-apply"><code>.apply()</code></button>
+          <button type="button" class="btn btn-primary" id="btn-update"><code>.update()</code></button>
+          <button type="button" class="btn btn-primary" id="btn-update-forced"><code>.update(true)</code></button>
+          <button type="button" class="btn btn-primary" id="btn-clear"><code>.clear()</code></button>
+
+        </div>
+      </div>
+
+      <!-- This is the actual gallery container with its items -->
+      <ul id="gallery">
+        <li>
+          <img src="http://placehold.it/700x400" data-width="700" data-height="400">
+        </li><li>
+          <img src="http://placehold.it/900x450" data-width="900" data-height="450">
+        </li><li>
+          <img src="http://placehold.it/1500x350" data-width="1500" data-height="350">
+        </li><li>
+          <img src="http://placehold.it/400x900" data-width="400" data-height="900">
+        </li><li>
+          <img src="http://placehold.it/300x800" data-width="300" data-height="800">
+        </li><li>
+          <img src="http://placehold.it/600x400" data-width="600" data-height="400">
+        </li><li>
+          <img src="http://placehold.it/650x400" data-width="650" data-height="400">
+        </li><li>
+          <img src="http://placehold.it/500x700" data-width="500" data-height="700">
+        </li>
+      </ul>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="dist/gallerygrid.js"></script>
+
+    <!-- This is the JS code to initialize the grid layout -->
+    <script>
+      // Instantiate a gallerygrid object for the gallery container
+      var grid = new GalleryGrid("#gallery", { border: 2, targetHeight: 250 });
+
+      // Apply the grid layout
+      grid.apply();
+
+      // Refresh grid layout (useful after container size or items have changed)
+      //grid.update();
+
+      // Remove grid layout
+      //grid.clear();
+
+
+      // ##############################################################
+      // The following code is used for the control panel in this demo:
+
+      $('#btn-apply').click(function() {
+        grid.apply();
+      });
+
+      $('#btn-update').click(function() {
+        grid.update();
+      });
+
+      $('#btn-update-forced').click(function() {
+        grid.update(true);
+      });
+
+      $('#btn-clear').click(function() {
+        grid.clear();
+      });
+
+      $('#config-targetheight').change(function() {
+        grid.options.targetHeight = $(this).val();
+      });
+      $('#config-targetheight').val(grid.options.targetHeight);
+
+      $('#config-minwidth').change(function() {
+        grid.options.minWidth = $(this).val();
+      });
+      $('#config-minwidth').val(grid.options.minWidth);
+
+      $('#config-updateonresize').change(function() {
+        grid.options.updateOnResize = $(this).prop('checked');
+      });
+      $('#config-updateonresize').prop('checked', grid.options.updateOnResize);
+    </script>
+  </body>
+</html>
