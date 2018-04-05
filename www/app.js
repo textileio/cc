@@ -11,6 +11,7 @@ requirejs.config({
       'fancybox': ['jquery.fancybox.min'],
       'justified': ['jquery.justifiedGallery.min'],
       'humandate': ['humandate.min'],
+      'imagesLoaded': ['imagesloaded.pkgd.min'],
       'promiseNode': ['promise.node'],
       'ipfs': ['ipfs.min']
     }

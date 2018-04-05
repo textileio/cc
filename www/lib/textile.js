@@ -18,7 +18,7 @@ define(function () {
     renderFirstPage: function() {
       this.populateData()
           .then(Textile.drawScreen.bind(this))
-          .then(Textile.scrollListen)
+          .then(Textile.renderAndListen)
           .then(Textile.getMeta.bind(this))
           .then(()=>{console.log('great')})
     },
@@ -53,11 +53,6 @@ define(function () {
       return Promise.all(promises.map(p => p.catch(e => e)))
           .then(() => { Textile.loading = false})
           .catch(e => console.log("error:", e))
-          .then(() => {
-            this.loading = false
-            this.onScreen += this.initPageSize
-            // $('.gallery').justifiedGallery('norewind');
-          })
     },
     getMeta: function() {
       let promises = []
@@ -91,10 +86,16 @@ define(function () {
           .then((obj) => { return obj.toJSON() })
           .catch(console.log)
     },
-    scrollListen: function() {
-      console.log('back on')
-      // Adds more rows of images if user is approaching bottom of page
-      window.onscroll = Textile.scrollFunction
+    renderAndListen: function() {
+      this.loading = false
+      this.onScreen += this.initPageSize
+      $('#gallery').imagesLoaded()
+          .always( function( ) {
+            console.log('okay')
+            $('.gallery').justifiedGallery('norewind');
+            // Adds more rows of images if user is approaching bottom of page
+            window.onscroll = Textile.scrollFunction
+          })
       // $(window).on("scroll", Textile.scrollFunction);
     },
     scrollFunction: function() {
@@ -111,7 +112,7 @@ define(function () {
         this.populateData()
             .then(this.drawScreen.bind(this))
             .catch(console.log)
-            .then(this.scrollListen)
+            .then(this.renderAndListen)
             .catch(console.log)
             .then(this.getMeta.bind(this))
             .catch(console.log)

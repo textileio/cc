@@ -2,10 +2,11 @@ define(function (require) {
   require('jquery');
   require('fancybox');
   require('justified');
+  let imagesLoaded = require('imagesLoaded');
   require('ipfs');
   require('promiseNode');
   require('textile');
-
+  
   require(['ipfs'], function(){
     PromiseNode.init();
     PromiseNode.onReady().then(function(){
