@@ -1,10 +1,10 @@
 define(function (require) {
   require('jquery');
-  require('fancybox');
   require('justified');
   let imagesLoaded = require('imagesLoaded');
   require('ipfs');
   require('promiseNode');
+  require('fancybox');
   require('textile');
   
   require(['ipfs'], function(){

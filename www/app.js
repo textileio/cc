@@ -14,7 +14,8 @@ requirejs.config({
       'imagesLoaded': ['imagesloaded.pkgd.min'],
       'promiseNode': ['promise.node'],
       'ipfs': ['ipfs.min']
-    }
+    },
+    waitSeconds : 0  // This basically doesn't let requirejs timeout on lib loads
 });
 
 // Start loading the main app file. Put all of
