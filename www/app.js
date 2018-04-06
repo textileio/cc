@@ -15,6 +15,12 @@ requirejs.config({
       'promiseNode': ['promise.node'],
       'ipfs': ['ipfs.min']
     },
+    shim: {
+      'fancybox': {
+        deps: ['jquery'],
+        exports: 'fancybox'
+      }
+    },
     waitSeconds : 0  // This basically doesn't let requirejs timeout on lib loads
 });
 

@@ -20,6 +20,7 @@ define(function () {
             }
           },
           "Bootstrap": [
+            "/ip4/127.0.0.1/tcp/4001/ipfs/QmXCnfoEK2Pd1QA8X6xrk7Z5m5gdE8NcEBBSkRmQyRfAck",
             "/ip4/52.204.1.97/tcp/4001/ipfs/QmPYxbNHdCN3ervZobHSDrN9v9XkzUL8QxDJSpATJLCwki",
             "/dns4/ams-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
             "/dns4/lon-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLMeWqB7YGVLJN3pNLQpmmEk35v6wYtsMGLzSr5QBU3",
