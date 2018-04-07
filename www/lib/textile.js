@@ -7,148 +7,95 @@ define(function () {
       this.onScreen = 0
       let rows = Math.max(Math.ceil($(window).height() / 500), 3)
       let cols = Math.max(Math.ceil($(window).width() / 500), 1)
-      this.initPageSize = rows * cols * 4
-      this.bufferSize = rows * cols * 2
+      // this.initPageSize = rows * cols * 4
+      this.bufferSize = rows * cols * 4
       this.loading = true
       this.data = {}
       this.hashes = this.getHashes() 
       for (hash of this.hashes) {
         this.data[hash] = {'hash': hash}
       }
-      this.renderFirstPage()
-    },
-    renderFirstPage: function() {
-      this.populateData()
-          .then(Textile.drawScreen.bind(this))
-          .then(Textile.renderAndListen)
-          .then(Textile.getMeta.bind(this))
-          .then(()=>{console.log('great')})
+      Textile.loading = false
+      this.bufferImages()
     },
     populateData: function () {
       // populate 2x screensize more worth of data
-      let promises = []
-      for (let i = this.onScreen; i < Math.min(this.onScreen + this.initPageSize * 2, this.hashes.length); i+=1) {
-        let hash = this.hashes[i]
-        if (!("meta" in this.data[hash])) {
-          promises.push(
-              this.getPathID(hash)
-                  .catch(console.log)
-                  .then(Textile.storeObject)
-                  .catch(console.log)
-          )
-        }
-      }
+      const upperLimit = Math.min(this.onScreen + this.bufferSize, this.hashes.length)
+      const promises = this.hashes
+        .slice(this.onScreen, upperLimit)
+        .map((hash) => Promise.resolve(hash))
       return Promise.all(promises.map(p => p.catch(e => e)))
           .then(() => { Textile.loading = false})
-          .catch(e => console.log(e));
+          .catch(console.log);
     },
     drawScreen: function() {
-      console.log("screen", this.onScreen, this.initPageSize, this.hashes.length)
-      let promises = []
-      for (let i = this.onScreen; i < Math.min(this.onScreen + this.initPageSize, this.hashes.length); i+=1) {
-        let hash = this.hashes[i]
-        promises.push(
-            this.getImageData(hash)
-                .then(this.draw.bind(this))
-        )
-      }
+      const upperLimit = Math.min(this.onScreen + this.bufferSize, this.hashes.length)
+      const promises = this.hashes
+        .slice(this.onScreen, upperLimit)
+        .map((hash) => this.getImageData(hash).then(this.draw.bind(this)))
       return Promise.all(promises.map(p => p.catch(e => e)))
           .then(() => { Textile.loading = false})
-          .catch(e => console.log("error:", e))
+          .catch(console.log);
     },
-    getMeta: function() {
-      let promises = []
-      for (let i = 0; i < Math.min(this.onScreen + this.initPageSize, this.hashes.length); i+=1) {
-        let hash = this.hashes[i]
-        if (this.data[hash].hasOwnProperty("meta") && !this.data[hash]['meta'].hasOwnProperty("data")) {
-          let metaHash = this.data[hash]["meta"]["hash"]
-          promises.push(
-              PromiseNode.getFiles(metaHash)
-                  .then((files) => {
-                    let content = JSON.parse(files[0].content)
-                    Textile.data[hash]["meta"]['data'] = content
-                    return hash
-                  })
-          )
-        }
+    getMeta: function(hash) {
+      if (!this.data[hash].hasOwnProperty("meta")) {
+        return PromiseNode.getFiles("/ipfs/" + hash + "/meta")
+          .then((files) => {
+            let content = JSON.parse(files[0].content)
+            this.data[hash].meta = content
+            // Add top-level hash for easier access later
+            this.data[hash].meta.multihash = hash
+            return content
+          })
+      } else {
+        return Promise.resolve(this.data[hash].meta)
       }
-      return Promise.all(promises.map(p => p.catch(e => e)))
-          .catch(e => console.log(e))
-    },
-    storeObject: function(obj) {
-      let hash = obj.multihash.toString()
-      let links = obj.links
-      for (link of links){
-        Textile.data[hash][link.name] = {"hash": link.multihash}
-      }
-      return obj
-    },
-    getPathID: function(hash) {
-      return PromiseNode.getObject(hash)
-          .then((obj) => { return obj.toJSON() })
-          .catch(console.log)
+
     },
     renderAndListen: function() {
-      console.log("render and listen")
       this.loading = false
-      this.onScreen += this.initPageSize
       $('#gallery').imagesLoaded()
           .always( function( ) {
-            console.log('okay')
             $('.gallery').justifiedGallery('norewind');
             // Adds more rows of images if user is approaching bottom of page
             window.onscroll = Textile.scrollFunction
           })
-      // $(window).on("scroll", Textile.scrollFunction);
     },
     scrollFunction: function() {
       if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.90) {
         didScroll = true;
-        Textile.bufferImages()
       }
     },
     bufferImages: function() {
-      // $(window).off("scroll", Textile.scrollFunction);
       window.onscroll = null
       if(!Textile.loading && this.onScreen < this.hashes.length) {
         Textile.loading = true
-        Textile.initPageSize = Textile.bufferSize
         this.populateData()
             .then(this.drawScreen.bind(this))
             .catch(console.log)
             .then(this.renderAndListen)
             .catch(console.log)
-            .then(this.getMeta.bind(this))
-            .catch(console.log)
+            .then(() => this.onScreen = Math.min(this.onScreen + this.bufferSize, this.hashes.length))
       }
     },
     getImageData: function(hash) {
-      if ("thumb.jpg" in this.data[hash] && !("data" in this.data[hash]['thumb.jpg'])) {
-        let multihash = this.data[hash]['thumb.jpg'].hash
-        return PromiseNode.getFiles(multihash)
-            .then((files) => {
-              return files[0].content
-            })
-            .catch(console.log)
-            .then((image) => {
-              Textile.data[hash]['thumb.jpg']['data'] = image
-              return hash
-            })
-      }
-      return Promise.resolve(hash)
+      // TODO: Currently we assume jpeg, which isn't always the case
+      return PromiseNode.getFiles("/ipfs/" + hash + "/small.jpeg")
+        .then((files) => {
+          return {image: files[0].content, hash: hash}
+        })
     },
-    draw: function(hash) {
-      if (!($('.'+hash).length)) {
-        var b64encoded = btoa(String.fromCharCode.apply(null, this.data[hash]['thumb.jpg']['data']));
+    draw: function(data) {
+      if (data) {
+        var b64encoded = btoa(String.fromCharCode.apply(null, data.image));
         var datajpg = "data:image/jpg;base64," + b64encoded;
         let img = $('<img>')
-        img.attr('id', hash);
+        img.attr('id', data.hash);
         img.attr('src', datajpg);
-        // data-src="#hidden-content" href="javascript:;"
         $('.gallery').append(
             $('<a>')
-                .attr("id", hash)
-                .attr("data-options", JSON.stringify({"hash": hash}))
+                .attr("id", data.hash)
+                .attr("data-options", JSON.stringify({"hash": data.hash}))
                 .attr("class", "gallery-item zoom")
                 .attr("data-fancybox", '')
                 .attr("data-src", '#full-image')
@@ -156,7 +103,7 @@ define(function () {
                 .append(img)
         )
       }
-      return Promise.resolve(hash)
+      return Promise.resolve(data.hash)
     },
     getHashes: function () {
       return [
@@ -245,9 +192,9 @@ define(function () {
 });
 
 // Only executes the onscroll action at most once every 100 milliseconds
-// setInterval(function() {
-//     if(didScroll) {
-//         didScroll = false;
-//         Textile.bufferImages()
-//     }
-// }, 100);
+setInterval(function() {
+    if(didScroll) {
+        didScroll = false;
+        Textile.bufferImages()
+    }
+}, 100);

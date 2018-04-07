@@ -17,8 +17,13 @@ requirejs.config({
     },
     shim: {
       'fancybox': {
-        deps: ['jquery'],
-        exports: 'fancybox'
+        deps: ['jquery']
+      },
+      'imagesLoaded': {
+        deps: ['jquery']
+      },
+      'justified': {
+        deps: ['jquery']
       }
     },
     waitSeconds : 0  // This basically doesn't let requirejs timeout on lib loads
