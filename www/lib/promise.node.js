@@ -20,8 +20,7 @@ define(function () {
             }
           },
           "Bootstrap": [
-            "/ip4/172.31.63.241/tcp/9999/ws/ipfs/QmPYxbNHdCN3ervZobHSDrN9v9XkzUL8QxDJSpATJLCwki",
-            "/ip4/52.204.1.97/tcp/4001/ipfs/QmPYxbNHdCN3ervZobHSDrN9v9XkzUL8QxDJSpATJLCwki",
+            "/dns4/ec2-52-204-1-97.compute-1.amazonaws.com/tcp/9999/ws/ipfs/QmPYxbNHdCN3ervZobHSDrN9v9XkzUL8QxDJSpATJLCwki",
             "/dns4/ams-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
             "/dns4/lon-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLMeWqB7YGVLJN3pNLQpmmEk35v6wYtsMGLzSr5QBU3",
             "/dns4/sfo-3.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM",
