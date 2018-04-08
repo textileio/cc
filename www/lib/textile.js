@@ -62,7 +62,7 @@ define(function () {
           })
     },
     scrollFunction: function() {
-      if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.90) {
+      if($(window).scrollTop() + $(window).height() >= $(document).height() * 0.80) {
         didScroll = true;
       }
     },
@@ -75,6 +75,11 @@ define(function () {
             .catch(console.log)
             .then(this.renderAndListen)
             .catch(console.log)
+            .then(() => {
+              if(window.location.hash) {
+                $(window.location.hash).trigger('click')
+              }
+            })
             .then(() => this.onScreen = Math.min(this.onScreen + this.bufferSize, this.hashes.length))
       }
     },

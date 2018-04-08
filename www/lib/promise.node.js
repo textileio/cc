@@ -20,7 +20,7 @@ define(function () {
             }
           },
           "Bootstrap": [
-            "/ip4/127.0.0.1/tcp/9999/ws/ipfs/QmXCnfoEK2Pd1QA8X6xrk7Z5m5gdE8NcEBBSkRmQyRfAck",
+            "/ip4/172.31.63.241/tcp/9999/ws/ipfs/QmPYxbNHdCN3ervZobHSDrN9v9XkzUL8QxDJSpATJLCwki",
             "/ip4/52.204.1.97/tcp/4001/ipfs/QmPYxbNHdCN3ervZobHSDrN9v9XkzUL8QxDJSpATJLCwki",
             "/dns4/ams-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
             "/dns4/lon-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLMeWqB7YGVLJN3pNLQpmmEk35v6wYtsMGLzSr5QBU3",
@@ -37,7 +37,6 @@ define(function () {
     onReady: function() {
       return new Promise((res, rej) => {
         this.node.on('ready', function() {
-          console.log("ipfs node ready")
           return res()
         })
       })
