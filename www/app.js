@@ -14,7 +14,19 @@ requirejs.config({
       'imagesLoaded': ['imagesloaded.pkgd.min'],
       'promiseNode': ['promise.node'],
       'ipfs': ['ipfs.min']
-    }
+    },
+    shim: {
+      'fancybox': {
+        deps: ['jquery']
+      },
+      'imagesLoaded': {
+        deps: ['jquery']
+      },
+      'justified': {
+        deps: ['jquery']
+      }
+    },
+    waitSeconds : 0  // This basically doesn't let requirejs timeout on lib loads
 });
 
 // Start loading the main app file. Put all of
